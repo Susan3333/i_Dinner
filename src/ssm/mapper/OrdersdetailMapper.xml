@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ssm.mapper.OrdersdetailMapper" >
+  <resultMap id="BaseResultMap" type="ssm.po.Ordersdetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="orders_id" property="orders_id" jdbcType="INTEGER" />
+    <result column="dish_id" property="dish_id" jdbcType="INTEGER" />
+    <result column="dish_num" property="dish_num" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, orders_id, dish_id, dish_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ssm.po.OrdersdetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ordersdetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ordersdetail
+    where id = #{orders_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByOrdersdetail" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ordersdetail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ordersdetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ssm.po.OrdersdetailExample" >
+    delete from ordersdetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ssm.po.Ordersdetail" >
+    insert into ordersdetail (id, orders_id, dish_id, 
+      dish_num)
+    values (#{id,jdbcType=INTEGER}, #{orders_id,jdbcType=INTEGER}, #{dish_id,jdbcType=INTEGER}, 
+      #{dish_num,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="ssm.po.Ordersdetail" >
+    insert into ordersdetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orders_id != null" >
+        orders_id,
+      </if>
+      <if test="dish_id != null" >
+        dish_id,
+      </if>
+      <if test="dish_num != null" >
+        dish_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orders_id != null" >
+        #{orders_id,jdbcType=INTEGER},
+      </if>
+      <if test="dish_id != null" >
+        #{dish_id,jdbcType=INTEGER},
+      </if>
+      <if test="dish_num != null" >
+        #{dish_num,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ssm.po.OrdersdetailExample" resultType="java.lang.Integer" >
+    select count(*) from ordersdetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ordersdetail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orders_id != null" >
+        orders_id = #{record.orders_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dish_id != null" >
+        dish_id = #{record.dish_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dish_num != null" >
+        dish_num = #{record.dish_num,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ordersdetail
+    set id = #{record.id,jdbcType=INTEGER},
+      orders_id = #{record.orders_id,jdbcType=INTEGER},
+      dish_id = #{record.dish_id,jdbcType=INTEGER},
+      dish_num = #{record.dish_num,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ssm.po.Ordersdetail" >
+    update ordersdetail
+    <set >
+      <if test="orders_id != null" >
+        orders_id = #{orders_id,jdbcType=INTEGER},
+      </if>
+      <if test="dish_id != null" >
+        dish_id = #{dish_id,jdbcType=INTEGER},
+      </if>
+      <if test="dish_num != null" >
+        dish_num = #{dish_num,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ssm.po.Ordersdetail" >
+    update ordersdetail
+    set orders_id = #{orders_id,jdbcType=INTEGER},
+      dish_id = #{dish_id,jdbcType=INTEGER},
+      dish_num = #{dish_num,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

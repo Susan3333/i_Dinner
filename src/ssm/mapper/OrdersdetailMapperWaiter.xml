@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ssm.mapper.OrdersdetailMapperWaiter">
+<!--后加的  -->
+  <!-- 商品查询的sql片段就是商品查询条件 -->
+	<sql id="query_orders_where">
+		<!-- 动态sql,通过if判断，满足条件进行拼接 -->
+		<!-- 商品查询条件通过ItemsQueryVo包装对象中的itemsCustom属性传递 -->
+		<if test="ordersdetailWaiter!=null">
+			<if test="ordersdetailWaiter.orders_id!=null and ordersdetailWaiter.orders_id!=''">
+				ordersdetail.orders_id = 2
+			</if>
+		</if>
+	</sql>
+	<select id="selectByOrdersdetail" parameterType="int"
+		resultType="ssm.po.OrdersdetailWaiter">
+		select ordersdetail.* from ordersdetail
+		 where ordersdetail.orders_id = #{id}
+	 <!-- <where>
+			<include refid="query_orders_where"></include>
+		</where>  -->
+	</select>
+	</mapper>
